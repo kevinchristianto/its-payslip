@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\EmployeeEmail;
+use App\Models\Employee;
 use Illuminate\Http\Request;
 
-class EmployeeEmailController extends Controller
+class EmployeeController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('pages.emails.index');
+        return view('pages.employees.index');
     }
 
     /**
@@ -34,7 +34,7 @@ class EmployeeEmailController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(EmployeeEmail $employeeEmail)
+    public function show(Employee $employee)
     {
         //
     }
@@ -42,7 +42,7 @@ class EmployeeEmailController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(EmployeeEmail $employeeEmail)
+    public function edit(Employee $employee)
     {
         //
     }
@@ -50,7 +50,7 @@ class EmployeeEmailController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, EmployeeEmail $employeeEmail)
+    public function update(Request $request, Employee $employee)
     {
         //
     }
@@ -58,7 +58,7 @@ class EmployeeEmailController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(EmployeeEmail $employeeEmail)
+    public function destroy(Employee $employee)
     {
         //
     }

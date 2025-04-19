@@ -119,9 +119,9 @@
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="{{ route('emails.index') }}" class="nav-link {{ Route::is('emails.index') ? 'active' : '' }}">
+							<a href="{{ route('employees.index') }}" class="nav-link {{ Route::is('employees.index') ? 'active' : '' }}">
 								<i class="nav-icon bi bi-envelope-at"></i>
-								<p>Manage Employee Emails</p>
+								<p>Manage Employees</p>
 							</a>
 						</li>
 						{{-- <li class="nav-item menu-open">
@@ -179,6 +179,8 @@
 				@yield('content')
 			</div>
 			<!--end::App Content-->
+
+			@yield('modal-section')
 		</main>
 		<!--end::App Main-->
 		<!--begin::Footer-->
