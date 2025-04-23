@@ -17,7 +17,6 @@ class EmployeeSeeder extends Seeder
             [
                 'nip' => '123456789',
                 'name' => 'Christian',
-                'gender' => 'M',
                 'status' => 'PKWT',
                 'email' => 'christiantok12@gmail.com',
                 'bank_name' => 'Bank of America',
@@ -27,7 +26,6 @@ class EmployeeSeeder extends Seeder
             [
                 'nip' => '123456780',
                 'name' => 'Kevin',
-                'gender' => 'M',
                 'status' => 'PKWT',
                 'email' => 'kevinchristianto22@gmail.com',
                 'bank_name' => 'Bank of America',

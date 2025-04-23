@@ -15,9 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('nip')->unique();
             $table->string('name');
-            $table->enum('gender', ['M', 'F']);
             $table->enum('status', ['PKWT', 'PKWTT', 'Outsource']);
-            $table->string('email')->unique();
+            $table->string('email')->unique()->nullable();
             $table->string('bank_name');
             $table->string('bank_account_name');
             $table->string('bank_account_number')->unique();

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class EmployeeController extends Controller
 {
@@ -12,7 +13,9 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        return view('pages.employees.index');
+        $data = Employee::all();
+
+        return view('pages.employees.index', compact('data'));
     }
 
     /**
@@ -28,7 +31,19 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'nip' => 'required|unique:employees,nip',
+            'name' => 'required|string',
+            'status' => 'required|in:PKWT,PKWTT,Outsource',
+            'email' => 'required|email|unique:employees,email',
+            'bank_name' => 'required|string',
+            'bank_account_name' => 'required|string',
+            'bank_account_number' => 'required|string',
+        ]);
+
+        Employee::create($validated);
+
+        return redirect()->route('employees.index')->with('success', 'New employee saved!');
     }
 
     /**
@@ -44,7 +59,7 @@ class EmployeeController extends Controller
      */
     public function edit(Employee $employee)
     {
-        //
+        return response()->json($employee, 200);
     }
 
     /**
@@ -52,7 +67,26 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, Employee $employee)
     {
-        //
+        $validated = $request->validate([
+            'nip' => [
+                'required',
+                Rule::unique('employees')->ignore($employee->id),
+            ],
+            'name' => 'required|string',
+            'status' => 'required|in:PKWT,PKWTT,Outsource',
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('employees')->ignore($employee->id),
+            ],
+            'bank_name' => 'required|string',
+            'bank_account_name' => 'required|string',
+            'bank_account_number' => 'required|string',
+        ]);
+
+        $employee->update($validated);
+
+        return redirect()->route('employees.index')->with('success', 'Employee updated!');
     }
 
     /**
@@ -60,6 +94,8 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
-        //
+        $employee->delete();
+
+        return redirect()->route('employees.index')->with('success', 'Employee deleted!');
     }
 }
