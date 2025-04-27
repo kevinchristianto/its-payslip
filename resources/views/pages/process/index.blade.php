@@ -13,10 +13,10 @@
             <div class="col-12">
                 <div class="card card-primary card-outline">
                     <div class="card-header">
-                        <h5 class="card-title">Choose and Upload Spreadsheet</h5>
+                        <h5 class="card-title">Unggah Rekapan Penggajian</h5>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('payslip.blast') }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('payslip.blast') }}" method="post" enctype="multipart/form-data" onsubmit="return confirm('Unggah rekapan penggajian ini? Setelah rekapan diunggah, PDF slip gaji akan dibuat secara otomatis dan pegawai yang terdata di file rekapan akan menerima email berisi slip gajinya. Lanjutkan?')">
                             @csrf
                             <div class="mb-3">
                                 <label for="period-start" class="form-label">Periode</label>
@@ -27,14 +27,14 @@
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <label for="spreadsheet" class="form-label">Payroll Report Spreadsheet</label>
+                                <label for="spreadsheet" class="form-label">File Rekapan Penggajian</label>
                                 <input type="file" class="form-control" id="spreadsheet" name="spreadsheet" required>
-                                <small class="text-danger">Please note, the content format of the spreadsheet must be in the same format as the example spreadsheet. Download the template <a href="#">here</a></small>
+                                <small class="text-danger">Perlu diperhatikan bahwa file spreadsheet daftar pegawai harus sesuai format yang ditentukan. Untuk mengunduh formatnya silakan <a href="{{ route('download.template', ['type' => 'payslip']) }}">unduh formatnya disini</a>.</small>
                             </div>
                             <div class="mb-3">
                                 <button class="btn btn-success float-end d-flex align-items-center gap-2" type="submit">
-                                    <i class="bi bi-floppy"></i>
-                                    Submit
+                                    <i class="bi bi-cloud-arrow-up"></i>
+                                    Unggah
                                 </button>
                             </div>
                         </form>

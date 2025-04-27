@@ -44,6 +44,13 @@
 		<nav class="app-header navbar navbar-expand bg-body">
 			<!--begin::Container-->
 			<div class="container-fluid">
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a class="nav-link" data-lte-toggle="sidebar" href="#" role="button">
+							<i class="bi bi-list"></i>
+						</a>
+					</li>
+				</ul>
 				<!--begin::End Navbar Links-->
 				<ul class="navbar-nav ms-auto">					
 					<!--begin::User Menu Dropdown-->
@@ -54,7 +61,7 @@
 							class="user-image rounded-circle shadow"
 							alt="User Image"
 							/>
-							<span class="d-none d-md-inline">Kuntal Konong</span>
+							<span class="d-none d-md-inline">{{ auth()->user()->name }}</span>
 						</a>
 						<ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
 							<!--begin::User Image-->
@@ -64,13 +71,13 @@
 								class="rounded-circle shadow"
 								alt="User Image"
 								/>
-								<p>Kuntal Konong</p>
-								<p>Admin</p>
+								<p>{{ auth()->user()->name }}</p>
+								{{-- <p>Admin</p> --}}
 							</li>
 							<!--end::User Image-->
 							<!--begin::Menu Footer-->
 							<li class="user-footer">
-								<a href="#" class="btn btn-default btn-flat float-end">Sign out</a>
+								<a href="{{ route('logout') }}" class="btn btn-default btn-flat float-end">Sign out</a>
 							</li>
 							<!--end::Menu Footer-->
 						</ul>
@@ -85,18 +92,18 @@
 			<!--begin::Sidebar-->
 			<aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
 				<!--begin::Sidebar Brand-->
-				<div class="sidebar-brand">
+				<div class="sidebar-brand justify-content-start">
 					<!--begin::Brand Link-->
-					<a href="./index.html" class="brand-link">
+					<a href="{{ route('blast.index') }}" class="brand-link">
 						<!--begin::Brand Image-->
 						<img
-							src="{{ asset('assets/img/AdminLTELogo.png') }}"
+							src="{{ asset('assets/img/its-logo.png') }}"
 							alt="AdminLTE Logo"
-							class="brand-image opacity-75 shadow"
+							class="brand-image"
 						/>
 						<!--end::Brand Image-->
 						<!--begin::Brand Text-->
-						<span class="brand-text fw-light">ITS Payslip Blast</span>
+						<span class="brand-text fw-light">Payslip Blast</span>
 						<!--end::Brand Text-->
 					</a>
 					<!--end::Brand Link-->

@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use App\Jobs\BlastEmail;
 use App\Models\Employee;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Collection;
@@ -79,9 +80,9 @@ class PayslipImport implements ToCollection, WithStartRow
             $data['jumlah_penerimaan'] = number_format($data['jumlah_penerimaan'], 0);
             $data['jumlah_pengurangan'] = number_format($data['jumlah_pengurangan'], 0);
             $data['terbilang'] = ucwords(Terbilang::convert($data['take_home_pay']) . ' Rupiah');
+            $data['recipient'] = $recipient;
 
-            $pdf = Pdf::loadView('print.payslip', $data);
-            $pdf->save(storage_path('app/private/' . $dir . '/' . $data['nip'] . '.pdf'));
+            BlastEmail::dispatch($data, $dir);
         }
     }
 

@@ -38,4 +38,13 @@ class SpreadsheetController extends Controller
 
         return $pdf->stream();
     }
+
+    public function download_template(Request $request)
+    {
+        if ($request->get('type') == 'payslip') {
+            return response()->download(storage_path('app/private/format/FormatPerhitunganGaji.xlsx'));
+        } else {
+            return response()->download(storage_path('app/private/format/FormatImportPegawai.xlsx'));
+        }
+    }
 }

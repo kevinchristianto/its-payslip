@@ -363,7 +363,7 @@
             <tr>
                 <td style="width: 10%">&nbsp;</td>
                 <td colspan="2">
-                    {{ $nomor_rekening }} {{ $nama_bank }} {{ $nama_rekening }}
+                    <strong>{{ $nama_bank }}</strong> &mdash; <strong>{{ $nomor_rekening }}</strong> a.n. <strong>{{ $nama_rekening }}</strong>
                 </td>
             </tr>
         </table>

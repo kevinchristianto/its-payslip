@@ -1,10 +1,10 @@
 @extends('layout.app')
 
-@section('title', 'Manage Employees')
+@section('title', 'Kelola Pegawai')
 
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="#">Home</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Manage Employees</li>
+    <li class="breadcrumb-item active" aria-current="page">Kelola Pegawai</li>
 @endsection
 
 @section('content')
@@ -14,10 +14,10 @@
                 <div class="card card-primary card-outline">
                     <div class="card-header">
                         <div class="d-flex justify-content-between align-items-center">
-                            <h5 class="card-title">Employees</h5>
+                            <h5 class="card-title">Daftar Pegawai</h5>
                             <button class="btn btn-outline-primary btn-sm d-flex gap-2 align-items-center" data-bs-target="#add-employee" data-bs-toggle="modal">
                                 <i class="bi bi-plus-lg"></i>
-                                Add New Employee
+                                Pegawai Baru
                             </button>
                         </div>
                     </div>
@@ -28,11 +28,11 @@
                                     <tr class="text-center">
                                         <th>No</th>
                                         <th>NIP</th>
-                                        <th>Employee Name</th>
+                                        <th>Nama Pegawai</th>
                                         <th>Status</th>
                                         <th>Email</th>
-                                        <th>Bank Name</th>
-                                        <th>Bank Account</th>
+                                        <th>Nama Bank</th>
+                                        <th>Nomor Rekening</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -52,7 +52,7 @@
                                                     <a href="#" class="btn btn-outline-primary btn-sm" onclick="editEmployee({{ $item->id }})">
                                                         <i class="bi bi-pencil"></i>
                                                     </a>
-                                                    <form action="{{ route('employees.destroy', $item->id) }}" method="post" onsubmit="return confirm('Are you sure you want to delete this employee?')">
+                                                    <form action="{{ route('employees.destroy', $item->id) }}" method="post" onsubmit="return confirm('Anda yakin ingin menghapus pegawai ini?')">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button class="btn btn-outline-danger btn-sm">
@@ -72,20 +72,21 @@
             <div class="col-12 col-lg-4">
                 <div class="card card-primary card-outline">
                     <div class="card-header">
-                        <h5 class="card-title">Choose and Upload Spreadsheet</h5>
+                        <h5 class="card-title">Unggah Daftar Pegawai</h5>
                     </div>
                     <div class="card-body">
+                        <div class="alert alert-warning">Fitur ini hanya direkomendasikan untuk digunakan dalam mengunggah data pegawai dalam jumlah banyak.</div>
                         <form action="{{ route('employees.import') }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-2">
-                                <label for="spreadsheet" class="form-label">Employee List</label>
+                                <label for="spreadsheet" class="form-label">Daftar Pegawai</label>
                                 <input type="file" class="form-control" id="spreadsheet" name="spreadsheet">
-                                <small class="text-danger">Please note, the content format of the spreadsheet must be in the same format as the example spreadsheet. Download the template <a href="#">here</a></small>
+                                <small class="text-danger">Perlu diperhatikan bahwa file spreadsheet daftar pegawai harus sesuai format yang ditentukan. Untuk mengunduh formatnya silakan <a href="{{ route('download.template', ['type' => 'employee']) }}">unduh formatnya disini</a>.</small>
                             </div>
                             <div class="mb-2">
                                 <button class="btn btn-success float-end d-flex align-items-center gap-2" type="submit">
-                                    <i class="bi bi-floppy"></i>
-                                    Submit
+                                    <i class="bi bi-cloud-arrow-up"></i>
+                                    Unggah
                                 </button>
                             </div>
                         </form>
@@ -101,7 +102,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Add New Employee</h5>
+                    <h5 class="modal-title">Tambah Pegawai Baru</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -113,13 +114,13 @@
                             <input type="text" class="form-control" id="nip" name="nip" required>
                         </div>
                         <div class="mb-2">
-                            <label for="name" class="form-label">Name</label>
+                            <label for="name" class="form-label">Nama Pegawai</label>
                             <input type="text" class="form-control" id="name" name="name" required>
                         </div>
                         <div class="mb-2">
                             <label for="status" class="form-label">Status</label>
                             <select class="form-control" id="status" name="status" required>
-                                <option value selected disabled>--- Choose status ---</option>
+                                <option value selected disabled>--- Pilih status ---</option>
                                 <option value="PKWT">PKWT</option>
                                 <option value="PKWTT">PKWTT</option>
                                 <option value="Outsource">Outsource</option>
@@ -130,25 +131,25 @@
                             <input type="email" class="form-control" id="email" name="email" required>
                         </div>
                         <div class="mb-2">
-                            <label for="bank_name" class="form-label">Bank Name</label>
+                            <label for="bank_name" class="form-label">Nama Bank</label>
                             <input type="text" class="form-control" id="bank_name" name="bank_name" required>
                         </div>
                         <div class="mb-2">
-                            <label for="bank_account_name" class="form-label">Bank Account Name</label>
-                            <input type="text" class="form-control" id="bank_account_name" name="bank_account_name" required>
+                            <label for="bank_account_number" class="form-label">Nomor Rekening Bank</label>
+                            <input type="text" class="form-control" id="bank_account_number" name="bank_account_number" required>
                         </div>
                         <div class="mb-2">
-                            <label for="bank_account_number" class="form-label">Bank Account Number</label>
-                            <input type="text" class="form-control" id="bank_account_number" name="bank_account_number" required>
+                            <label for="bank_account_name" class="form-label">Nama di Rekening Bank</label>
+                            <input type="text" class="form-control" id="bank_account_name" name="bank_account_name" required>
                         </div>
                         <div class="d-flex justify-content-between">
                             <a href="#" class="btn btn-outline-secondary d-flex gap-2" data-bs-dismiss="modal">
                                 <i class="bi bi-x-lg"></i>
-                                Cancel
+                                Batal
                             </a>
                             <button class="btn btn-outline-success d-flex gap-2">
                                 <i class="bi bi-floppy"></i>
-                                Save
+                                Simpan
                             </button>
                         </div>
                     </form>
