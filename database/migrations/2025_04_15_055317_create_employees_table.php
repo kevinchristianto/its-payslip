@@ -16,10 +16,10 @@ return new class extends Migration
             $table->string('nip')->unique();
             $table->string('name');
             $table->enum('status', ['PKWT', 'PKWTT', 'Outsource']);
-            $table->string('email')->unique()->nullable();
-            $table->string('bank_name');
-            $table->string('bank_account_name');
-            $table->string('bank_account_number')->unique();
+            $table->string('email')->unique();
+            $table->string('bank_name')->nullable();
+            $table->string('bank_account_name')->nullable();
+            $table->string('bank_account_number')->unique()->nullable();
             $table->timestamps();
         });
     }

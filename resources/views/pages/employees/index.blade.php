@@ -44,9 +44,9 @@
                                             <td>{{ $item->nip }}</td>
                                             <td>{{ $item->name }}</td>
                                             <td>{{ $item->status }}</td>
-                                            <td>{{ $item->email }}</td>
-                                            <td>{{ $item->bank_name }}</td>
-                                            <td>{{ $item->bank_account_number . ' a.n. ' . $item->bank_account_name }}</td>
+                                            <td>{{ $item->email ?? '-' }}</td>
+                                            <td>{{ $item->bank_name ?? '-' }}</td>
+                                            <td>{{ $item->bank_account_number && $item->bank_account_name ? $item->bank_account_number . ' a.n. ' . $item->bank_account_name : '-' }}</td>
                                             <td>
                                                 <div class="d-flex gap-2">
                                                     <a href="#" class="btn btn-outline-primary btn-sm" onclick="editEmployee({{ $item->id }})">
@@ -159,9 +159,15 @@
     </div>
 @endsection
 
+@section('custom-style')
+    <link rel="stylesheet" href="{{ asset('assets/plugins/datatables/datatables.min.css') }}" />
+@endsection
+
 @section('custom-script')
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>
     <script>
+        $('.table').DataTable()
+
         editEmployee = id => {
             let url = `{{ route('employees.edit', ':id') }}`
             url = url.replace(':id', id)

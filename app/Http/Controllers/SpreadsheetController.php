@@ -30,6 +30,7 @@ class SpreadsheetController extends Controller
         $periode = $date_start . ' - ' . $date_end;
         $spreadsheet = Excel::import(new PayslipImport($periode), $request->file('spreadsheet'));
         
+        return redirect()->route('blast.index')->with('success', 'Slip gaji sedang dibuat. Seluruh pegawai yang terdata pada spreadsheet yang diunggah akan menerima email dalam beberapa saat...');
     }
 
     public function test()
