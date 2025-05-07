@@ -41,6 +41,16 @@
                     </div>
                 </div>
             </div>
+            @if (session()->has('missing_emails'))
+                @foreach (session()->get('missing_emails') as $email)
+                    <div class="col-lg-6 col-12 mt-3">
+                        <div class="alert alert-danger" role="alert">
+                            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                            Email untuk <strong>{{ $email['name'] }} ({{ $email['nip'] }})</strong> belum terdaftar di sistem. Slip gaji gagal dikirim untuk pegawai tersebut.
+                        </div>
+                    </div>
+                @endforeach
+            @endif
         </div>
     </div>
 @endsection

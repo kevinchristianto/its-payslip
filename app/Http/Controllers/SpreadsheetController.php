@@ -6,6 +6,7 @@ use App\Imports\EmployeeImport;
 use App\Imports\PayslipImport;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Maatwebsite\Excel\Facades\Excel;
 
 class SpreadsheetController extends Controller
@@ -28,7 +29,13 @@ class SpreadsheetController extends Controller
         $date_end = date_format(date_create($request->period_end), 'd F Y');
         $directory_name = $date_start . '_' . $date_end;
         $periode = $date_start . ' - ' . $date_end;
-        $spreadsheet = Excel::import(new PayslipImport($periode), $request->file('spreadsheet'));
+        $import = Excel::import(new PayslipImport($periode, auth()->id()), $request->file('spreadsheet'));
+
+        $missing_emails = Cache::pull("missing_email_{$request->user()->id}");
+
+        if (!empty($missing_emails)) {
+            $request->session()->flash('missing_emails', $missing_emails);
+        }
         
         return redirect()->route('blast.index')->with('success', 'Slip gaji sedang dibuat. Seluruh pegawai yang terdata pada spreadsheet yang diunggah akan menerima email dalam beberapa saat...');
     }

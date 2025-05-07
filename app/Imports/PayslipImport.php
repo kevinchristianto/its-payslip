@@ -6,6 +6,7 @@ use App\Jobs\BlastEmail;
 use App\Models\Employee;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithStartRow;
@@ -13,11 +14,9 @@ use Ngekoding\Terbilang\Terbilang;
 
 class PayslipImport implements ToCollection, WithStartRow
 {
-    private $periode;
-
-    public function __construct($periode)
+    public function __construct(private $periode, private $user_id)
     {
-        $this->periode = $periode;
+        
     }
 
     /**
@@ -31,7 +30,17 @@ class PayslipImport implements ToCollection, WithStartRow
             Storage::disk('local')->makeDirectory($dir);
         }
 
+        $missing_email = [];
         foreach ($collection as $row) {
+            if (Employee::where('nip', $row[1])->doesntExist()) {
+                $missing_email[] = [
+                    'nip' => $row[1],
+                    'name' => $row[2],
+                ];
+
+                continue;
+            }
+
             $recipient = Employee::where('nip', $row[1])->first()->email;
             $data = [
                 'periode' => $this->periode,
@@ -83,6 +92,10 @@ class PayslipImport implements ToCollection, WithStartRow
             $data['recipient'] = $recipient;
 
             BlastEmail::dispatch($data, $dir);
+        }
+
+        if (count($missing_email) > 0) {
+            Cache::put("missing_email_{$this->user_id}", $missing_email, now()->addMinutes(10));
         }
     }
 
