@@ -36,9 +36,9 @@ class EmployeeController extends Controller
             'name' => 'required|string',
             'status' => 'required|in:PKWT,PKWTT,Outsource',
             'email' => 'required|email|unique:employees,email',
-            'bank_name' => 'required|string',
-            'bank_account_name' => 'required|string',
-            'bank_account_number' => 'required|string',
+            'bank_name' => 'nullable|string',
+            'bank_account_name' => 'nullable|string',
+            'bank_account_number' => 'nullable|string',
         ]);
 
         Employee::create($validated);
@@ -79,9 +79,9 @@ class EmployeeController extends Controller
                 'email',
                 Rule::unique('employees')->ignore($employee->id),
             ],
-            'bank_name' => 'required|string',
-            'bank_account_name' => 'required|string',
-            'bank_account_number' => 'required|string',
+            'bank_name' => 'nullable|string',
+            'bank_account_name' => 'nullable|string',
+            'bank_account_number' => 'nullable|string',
         ]);
 
         $employee->update($validated);
