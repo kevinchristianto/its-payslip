@@ -132,15 +132,15 @@
                         </div>
                         <div class="mb-2">
                             <label for="bank_name" class="form-label">Nama Bank</label>
-                            <input type="text" class="form-control" id="bank_name" name="bank_name" required>
+                            <input type="text" class="form-control" id="bank_name" name="bank_name">
                         </div>
                         <div class="mb-2">
                             <label for="bank_account_number" class="form-label">Nomor Rekening Bank</label>
-                            <input type="text" class="form-control" id="bank_account_number" name="bank_account_number" required>
+                            <input type="text" class="form-control" id="bank_account_number" name="bank_account_number">
                         </div>
                         <div class="mb-2">
                             <label for="bank_account_name" class="form-label">Nama di Rekening Bank</label>
-                            <input type="text" class="form-control" id="bank_account_name" name="bank_account_name" required>
+                            <input type="text" class="form-control" id="bank_account_name" name="bank_account_name">
                         </div>
                         <div class="d-flex justify-content-between">
                             <a href="#" class="btn btn-outline-secondary d-flex gap-2" data-bs-dismiss="modal">
