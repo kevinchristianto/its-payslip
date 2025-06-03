@@ -10,9 +10,10 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithStartRow;
+use Maatwebsite\Excel\Concerns\WithCalculatedFormulas;
 use Ngekoding\Terbilang\Terbilang;
 
-class PayslipImport implements ToCollection, WithStartRow
+class PayslipImport implements ToCollection, WithStartRow, WithCalculatedFormulas
 {
     public function __construct(private $periode, private $user_id)
     {
