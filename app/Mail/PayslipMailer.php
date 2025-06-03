@@ -36,8 +36,7 @@ class PayslipMailer extends Mailable
                 new Address('hrd@inosantek.com', 'HRD Inosantek')
             ],
             bcc: [
-                new Address('bcc_payslip@inosantek.com', 'Payslip ' . $this->data['nip']),
-                new Address('buat.crypto69@gmail.com', 'Test')
+                new Address('bcc_payslip@inosantek.com', 'Payslip')
             ]
         );
     }
