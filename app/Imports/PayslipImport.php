@@ -82,8 +82,8 @@ class PayslipImport implements ToCollection, WithStartRow
                 'nomor_rekening' => $row[41],
                 'nama_rekening' => $row[42],
                 'today' => $today,
-                'jumlah_penerimaan' => $row[6] + $row[17] + $row[18] + $row[19] + $row[20] + $row[21] + $row[22] + $row[23],
-                'jumlah_pengurangan' => $row[25] + $row[26] + $row[27] + $row[28] + $row[29] + $row[30] + $row[31] + $row[32] + $row[33] + $row[34] + $row[35] + $row[36] + $row[37],
+                'jumlah_penerimaan' => (is_numeric($row[6]) ? $row[6] : 0) + (is_numeric($row[17]) ? $row[17] : 0) + (is_numeric($row[18]) ? $row[18] : 0) + (is_numeric($row[19]) ? $row[19] : 0) + (is_numeric($row[20]) ? $row[20] : 0) + (is_numeric($row[21]) ? $row[21] : 0) + (is_numeric($row[22]) ? $row[22] : 0) + (is_numeric($row[23]) ? $row[23] : 0),
+                'jumlah_pengurangan' => (is_numeric($row[25]) ? $row[25] : 0) + (is_numeric($row[26]) ? $row[26] : 0) + (is_numeric($row[27]) ? $row[27] : 0) + (is_numeric($row[28]) ? $row[28] : 0) + (is_numeric($row[29]) ? $row[29] : 0) + (is_numeric($row[30]) ? $row[30] : 0) + (is_numeric($row[31]) ? $row[31] : 0) + (is_numeric($row[32]) ? $row[32] : 0) + (is_numeric($row[33]) ? $row[33] : 0) + (is_numeric($row[34]) ? $row[34] : 0) + (is_numeric($row[35]) ? $row[35] : 0) + (is_numeric($row[36]) ? $row[36] : 0) + (is_numeric($row[37]) ? $row[37] : 0),
             ];
             $data['take_home_pay'] = is_numeric($data['jumlah_penerimaan']) && is_numeric($data['jumlah_pengurangan']) ? number_format($data['jumlah_penerimaan'] - $data['jumlah_pengurangan'], 0) : 0;
             $data['jumlah_penerimaan'] = is_numeric($data['jumlah_penerimaan']) ? number_format($data['jumlah_penerimaan'], 0) : 0;
