@@ -8,89 +8,87 @@
 @endsection
 
 @section('content')
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12 col-lg-8">
-                <div class="card card-primary card-outline">
-                    <div class="card-header">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h5 class="card-title">Daftar Pegawai</h5>
-                            <button class="btn btn-outline-primary btn-sm d-flex gap-2 align-items-center" data-bs-target="#add-employee" data-bs-toggle="modal">
-                                <i class="bi bi-plus-lg"></i>
-                                Pegawai Baru
-                            </button>
-                        </div>
+    <div class="row">
+        <div class="col-12 col-lg-8">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="card-title">Daftar Pegawai</h5>
+                        <button class="btn btn-light-primary btn-sm d-flex gap-2 align-items-center" data-bs-target="#add-employee" data-bs-toggle="modal">
+                            <i class="ti ti-user-plus"></i>
+                            Pegawai Baru
+                        </button>
                     </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-hover">
-                                <thead>
-                                    <tr class="text-center">
-                                        <th>No</th>
-                                        <th>NIP</th>
-                                        <th>Nama Pegawai</th>
-                                        <th>Status</th>
-                                        <th>Email</th>
-                                        <th>Nama Bank</th>
-                                        <th>Nomor Rekening</th>
-                                        <th>Action</th>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>No</th>
+                                    <th>NIP</th>
+                                    <th>Nama Pegawai</th>
+                                    <th>Status</th>
+                                    <th>Email</th>
+                                    <th>Nama Bank</th>
+                                    <th>Nomor Rekening</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @php $no = 1 @endphp
+                                @foreach ($data as $item)
+                                    <tr>
+                                        <td>{{ $no++ }}</td>
+                                        <td>{{ $item->nip }}</td>
+                                        <td>{{ $item->name }}</td>
+                                        <td>{{ $item->status }}</td>
+                                        <td>{{ $item->email ?? '-' }}</td>
+                                        <td>{{ $item->bank_name ?? '-' }}</td>
+                                        <td>{{ $item->bank_account_number && $item->bank_account_name ? $item->bank_account_number . ' a.n. ' . $item->bank_account_name : '-' }}</td>
+                                        <td>
+                                            <div class="d-flex justify-content-center gap-2">
+                                                <a href="#" class="btn btn-outline-primary btn-sm" onclick="editEmployee({{ $item->id }})">
+                                                    <i class="ti ti-pencil"></i>
+                                                </a>
+                                                <form action="{{ route('employees.destroy', $item->id) }}" method="post" onsubmit="return confirm('Anda yakin ingin menghapus pegawai ini?')">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="btn btn-outline-danger btn-sm">
+                                                        <i class="ti ti-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    @php $no = 1 @endphp
-                                    @foreach ($data as $item)
-                                        <tr>
-                                            <td>{{ $no++ }}</td>
-                                            <td>{{ $item->nip }}</td>
-                                            <td>{{ $item->name }}</td>
-                                            <td>{{ $item->status }}</td>
-                                            <td>{{ $item->email ?? '-' }}</td>
-                                            <td>{{ $item->bank_name ?? '-' }}</td>
-                                            <td>{{ $item->bank_account_number && $item->bank_account_name ? $item->bank_account_number . ' a.n. ' . $item->bank_account_name : '-' }}</td>
-                                            <td>
-                                                <div class="d-flex gap-2">
-                                                    <a href="#" class="btn btn-outline-primary btn-sm" onclick="editEmployee({{ $item->id }})">
-                                                        <i class="bi bi-pencil"></i>
-                                                    </a>
-                                                    <form action="{{ route('employees.destroy', $item->id) }}" method="post" onsubmit="return confirm('Anda yakin ingin menghapus pegawai ini?')">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button class="btn btn-outline-danger btn-sm">
-                                                            <i class="bi bi-trash"></i>
-                                                        </button>
-                                                    </form>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-lg-4">
-                <div class="card card-primary card-outline">
-                    <div class="card-header">
-                        <h5 class="card-title">Unggah Daftar Pegawai</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="alert alert-warning">Fitur ini hanya direkomendasikan untuk digunakan dalam mengunggah data pegawai dalam jumlah banyak.</div>
-                        <form action="{{ route('employees.import') }}" method="post" enctype="multipart/form-data">
-                            @csrf
-                            <div class="mb-2">
-                                <label for="spreadsheet" class="form-label">Daftar Pegawai</label>
-                                <input type="file" class="form-control" id="spreadsheet" name="spreadsheet">
-                                <small class="text-danger">Perlu diperhatikan bahwa file spreadsheet daftar pegawai harus sesuai format yang ditentukan. Untuk mengunduh formatnya silakan <a href="{{ route('download.template', ['type' => 'employee']) }}">unduh formatnya disini</a>.</small>
-                            </div>
-                            <div class="mb-2">
-                                <button class="btn btn-success float-end d-flex align-items-center gap-2" type="submit">
-                                    <i class="bi bi-cloud-arrow-up"></i>
-                                    Unggah
-                                </button>
-                            </div>
-                        </form>
-                    </div>
+        </div>
+        <div class="col-12 col-lg-4">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h5 class="card-title">Unggah Daftar Pegawai</h5>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-warning">Fitur ini hanya direkomendasikan untuk digunakan dalam mengunggah data pegawai dalam jumlah banyak.</div>
+                    <form action="{{ route('employees.import') }}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <div class="mb-2">
+                            <label for="spreadsheet" class="form-label">Daftar Pegawai</label>
+                            <input type="file" class="form-control" id="spreadsheet" name="spreadsheet">
+                            <small class="text-danger">Perlu diperhatikan bahwa file spreadsheet daftar pegawai harus sesuai format yang ditentukan. Untuk mengunduh formatnya silakan <a href="{{ route('download.template', ['type' => 'employee']) }}">unduh formatnya disini</a>.</small>
+                        </div>
+                        <div class="mb-2">
+                            <button class="btn btn-light-primary float-end d-flex align-items-center gap-2" type="submit">
+                                <i class="ti ti-cloud-upload"></i>
+                                Unggah
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -144,11 +142,11 @@
                         </div>
                         <div class="d-flex justify-content-between">
                             <a href="#" class="btn btn-outline-secondary d-flex gap-2" data-bs-dismiss="modal">
-                                <i class="bi bi-x-lg"></i>
+                                <i class="ti ti-x"></i>
                                 Batal
                             </a>
-                            <button class="btn btn-outline-success d-flex gap-2">
-                                <i class="bi bi-floppy"></i>
+                            <button class="btn btn-light-success d-flex gap-2">
+                                <i class="ti ti-device-floppy"></i>
                                 Simpan
                             </button>
                         </div>
