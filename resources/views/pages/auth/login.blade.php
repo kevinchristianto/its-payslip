@@ -44,7 +44,7 @@
                 <div class="card my-5">
                     <div class="card-body">
                         <a href="#" class="d-flex justify-content-center">
-                            <img src="{{ asset('assets/images/its-logo.png') }}" alt="image" class="img-fluid brand-logo" />
+                            <img src="{{ asset('assets/images/its-logo.png') }}" alt="image" class="img-fluid brand-logo" style="height: 60px" />
                         </a>
                         <div class="row">
                             <div class="d-flex justify-content-center">
