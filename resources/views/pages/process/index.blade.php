@@ -1,6 +1,6 @@
 @extends('layout.app')
 
-@section('title', 'Upload Spreadsheet')
+@section('title', 'Kirim Slip Gaji')
 
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="#">Beranda</a></li>

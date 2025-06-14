@@ -141,11 +141,11 @@
                             <input type="text" class="form-control" id="bank_account_name" name="bank_account_name">
                         </div>
                         <div class="d-flex justify-content-between">
-                            <a href="#" class="btn btn-outline-secondary d-flex gap-2" data-bs-dismiss="modal">
+                            <a href="#" class="btn btn-outline-secondary d-flex gap-2 align-items-center" data-bs-dismiss="modal">
                                 <i class="ti ti-x"></i>
                                 Batal
                             </a>
-                            <button class="btn btn-light-success d-flex gap-2">
+                            <button class="btn btn-light-success d-flex gap-2 align-items-center">
                                 <i class="ti ti-device-floppy"></i>
                                 Simpan
                             </button>
