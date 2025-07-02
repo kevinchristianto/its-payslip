@@ -385,7 +385,7 @@
                     Pegawai
                 </td>
                 <td style="width: 33.333333333%">
-                    <u><strong>Ahmad Aprilian</strong></u><br>
+                    <u><strong>Putri Arifa Nuralamsyah</strong></u><br>
                     HRD
                 </td>
                 <td>
