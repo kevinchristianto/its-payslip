@@ -183,7 +183,7 @@
                 </tr>
                 <tr>
                     <td>&nbsp;</td>
-                    <td>Kekurangan Lemburan</td>
+                    <td>Penerimaan Tambahan</td>
                     <td>&nbsp;</td>
                     <td>Bulan</td>
                     <td colspan="2">Rp{{ $bayaran_kekurangan_lemburan }}</td>
