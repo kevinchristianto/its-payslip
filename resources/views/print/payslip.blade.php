@@ -62,7 +62,7 @@
         <table class="header">
             <tr>
                 <td rowspan="2" style="width: 30%; text-align: left">
-                    <img src="assets/img/Logo ITS.png" alt="Logo ITS" style="width: 160px">
+                    <img src="assets/images/its-logo.png" alt="Logo ITS" style="width: 160px">
                 </td>
                 <td>
                     <h1 style="margin: 0">PT Inosantek Total Solusi</h1>
